@@ -2,11 +2,37 @@
 
 public class Hero extends Creature {
 
+
+
     private int experience;
     private int healPotion;
+    private int gold;
+    private int maxHealth;
 
     public Hero(Builder builder) {
         super(builder.name, builder.health, builder.strength, builder.agility, 1);
+        maxHealth = builder.health;
+        experience = 0;
+    }
+
+    public Hero addExperience(int experience) {
+        this.experience += experience;
+        return this;
+    }
+
+    public Hero addGold(int gold) {
+        this.gold += gold;
+        return this;
+    }
+
+    public Hero buy(int price) {
+        if(price > gold) {
+            System.out.println("Sorry, you don`t have enough money! You need " + (price - gold) + " more. Go on and get it!" );
+        } else {
+            gold -= price;
+            healPotion++;
+        }
+        return this;
     }
 
     public static class Builder {
@@ -59,7 +85,22 @@ public class Hero extends Creature {
         return "Hero " + getName() + " created!";
     }
 
-    public void drinkHealPotion() {
+    @Override
+    public void attack(Creature enemy, int randomResist) {
+        System.out.print("Hero ");
+        super.attack(enemy, randomResist);
+    }
 
+    public void drinkPotion() {
+        //Зелье добавляет +20 здоровья
+        if (healPotion > 0) {
+            healPotion--;
+            setHealth(getHealth() + 20);
+            //Здоровье не может быть больше максимального
+            if (getHealth() > maxHealth) {
+                setHealth(maxHealth);
+            }
+
+        }
     }
 }

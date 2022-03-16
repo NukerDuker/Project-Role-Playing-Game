@@ -1,7 +1,7 @@
 public class Goblin extends Creature{
 
     public Goblin(Builder builder) {
-        super(builder.name, builder.health, builder.strength, builder.agility, builder.level);
+        super(builder.name, builder.health, builder.strength, builder.agility, 1);
     }
 
     public static class Builder{
@@ -50,5 +50,11 @@ public class Goblin extends Creature{
     @Override
     public String toString() {
         return "Goblin created!";
+    }
+
+    @Override
+    public void attack(Creature enemy, int randomResist) {
+        System.out.print("Goblin ");
+        super.attack(enemy, randomResist);
     }
 }

@@ -1,3 +1,4 @@
+import java.util.concurrent.*;
 public abstract class Creature {
 
     private final String name;
@@ -39,30 +40,28 @@ public abstract class Creature {
         return this;
     }
 
-    public StringBuilder attack(Creature enemy, int randomResist) {
+    public void attack(Creature enemy, int randomResist) {
         StringBuilder result = new StringBuilder();
-        boolean hit = this.getAgility() * 3 >= randomResist;
-
+        boolean hit = this.getAgility() * 3 >= randomResist - this.getAgility();
+        System.out.print(" attacks!");
+        System.out.println("RR = " + randomResist);
         if (hit) {
-            result.append("Hit! ");
+            System.out.println("Hit! ");
             boolean criticalHit = this.getAgility() * 3 <= randomResist + 5;
-            int damage = this.getStrength();
+            int damage = this.getStrength() * 2;
 
             if (criticalHit) {
                 result.delete(0, 3);
-                result.append("Critical hit! ");
+                System.out.println("Critical damage! ");
                 damage = this.getStrength() * 2;
             }
-
-            result.append("Damage: " + damage);
+            System.out.println("Damage: " + damage);
             enemy.setHealth(enemy.getHealth() - damage);
 
         } else {
-            result.append("Miss! Damage is 0");
+            System.out.println(" Miss! Damage is 0");
         }
-        return result;
+        System.out.println(this.getName() + " health = " + this.getHealth());
     }
-
-
 
 }

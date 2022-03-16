@@ -53,4 +53,10 @@ public class Skeleton extends Creature{
     public String toString() {
         return "Skeleton created!";
     }
+
+    @Override
+    public void attack(Creature enemy, int randomResist) {
+        System.out.print("Skeleton ");
+        super.attack(enemy, randomResist);
+    }
 }
