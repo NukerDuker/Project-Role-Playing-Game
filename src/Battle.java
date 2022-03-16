@@ -2,14 +2,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Battle implements Runnable{
+
     Hero hero;
     Creature enemy;
+    Game game;
     Random rand = new Random();
+    Thread levelUpListener;
     boolean endFight = false;
 
-    Battle(Hero hero, Creature enemy){
+    Battle(Hero hero, Game game){
+        this.game = game;
         this.hero = hero;
-        this.enemy = enemy;
+        levelUpListener = new Thread(new LevelUpListener(hero));
+        levelUpListener.start();
     }
 
     @Override
@@ -52,7 +57,7 @@ public class Battle implements Runnable{
         }
         String result = hero.getHealth() > 0 ? "Hero " + hero.getName() + " wins!" : "Monster wins," + hero.getName() + " dies!";
 
-        if (hero.getHealth() > 0 && enemy.getHealth() == 0) {
+        if (hero.getHealth() > 0 && enemy.getHealth() <= 0) {
 
             int randomGold = getRandInt(10, 0);
             int receivedGold = randomGold + (enemy.getLevel());
@@ -60,10 +65,12 @@ public class Battle implements Runnable{
 
             hero.addGold(receivedGold);
             hero.addExperience(receivedExp);
+            hero.fullHealth();
             System.out.println("Drop: " + receivedGold + " , and exp: " + receivedExp);
 
-        } else if(enemy.getHealth() > 0 && hero.getHealth() == 0) {
+        } else if(enemy.getHealth() > 0 && hero.getHealth() <= 0) {
             System.out.println("Game over, " + hero.getName() + " is dead!");
+            game.setExit();
         }
         return result;
     }

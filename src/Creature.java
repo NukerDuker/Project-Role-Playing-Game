@@ -1,4 +1,6 @@
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public abstract class Creature {
 
     private final String name;
@@ -64,4 +66,18 @@ public abstract class Creature {
         System.out.println(this.getName() + " health = " + this.getHealth());
     }
 
+    public Creature setStrength() {
+        strength++;
+        return this;
+    }
+
+    public Creature setAgility() {
+        agility++;
+        return this;
+    }
+
+    public Creature setLevel() {
+        level++;
+        return this;
+    }
 }
