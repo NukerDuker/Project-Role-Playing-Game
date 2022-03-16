@@ -1,46 +1,15 @@
 
 
-public class Hero extends Creature{
+public class Hero extends Creature {
 
-    private final String name;
-    private int health;
-    private int strength;
-    private int agility;
-    private int level;
     private int experience;
     private int healPotion;
 
     public Hero(Builder builder) {
-        this.name = builder.name;
-        this.health = builder.health;
-        this.strength = builder.strength;
-        this.agility = builder.agility;
-        this.level = 1;
-        this.experience = 0;
-        healPotion = 0;
+        super(builder.name, builder.health, builder.strength, builder.agility, 1);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAgility() {
-        return agility;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public static class Builder{
+    public static class Builder {
 
         private String name;
         private int health;
@@ -48,11 +17,13 @@ public class Hero extends Creature{
         private int agility;
         private int level;
 
-        private Builder(){};
+        private Builder() {
+        }
 
         public static Builder newInstance() {
             return new Builder();
         }
+
         public Builder setName(String name) {
             this.name = name;
             return this;
@@ -73,28 +44,19 @@ public class Hero extends Creature{
             return this;
         }
 
+        public Builder levelUp() {
+            this.level++;
+            return this;
+        }
+
         public Hero build() {
             return new Hero(this);
         }
     }
 
     @Override
-    public String attack(Creature enemy, int randomResist) {
-        boolean hit = this.agility * 3 >= randomResist;
-        if (hit) {
-            boolean criticalHit = this.agility * 3 <= randomResist + 5;
-            int damage = this.strength;
-            if (criticalHit) {
-                damage = this.strength * 2;
-            }
-
-        }
-        return null;
-    }
-
-    @Override
     public String toString() {
-        return "Hero " + name + " created!";
+        return "Hero " + getName() + " created!";
     }
 
     public void drinkHealPotion() {

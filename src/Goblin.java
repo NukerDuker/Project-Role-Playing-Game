@@ -1,11 +1,10 @@
-public class Skeleton extends Creature{
+public class Goblin extends Creature{
 
-    public Skeleton(Builder builder) {
-        super(builder.name, builder.health, builder.strength, builder.agility, 1);
+    public Goblin(Builder builder) {
+        super(builder.name, builder.health, builder.strength, builder.agility, builder.level);
     }
 
-
-    public static class Builder {
+    public static class Builder{
 
         private String name;
         private int health;
@@ -43,14 +42,13 @@ public class Skeleton extends Creature{
             return this;
         }
 
-        public Skeleton build() {
-            return new Skeleton(this);
+        public Goblin build() {
+            return new Goblin(this);
         }
-
     }
 
     @Override
     public String toString() {
-        return "Skeleton created!";
+        return "Goblin created!";
     }
 }
