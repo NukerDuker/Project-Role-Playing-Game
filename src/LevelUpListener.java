@@ -12,7 +12,6 @@ public class LevelUpListener implements Runnable{
     public void run() {
         while(!hero.isDead()) {
             baseExp = hero.getLevel() * 300;
-            //System.out.println("getlvl: " + baseExp);
             if(hero.getExperience() > baseExp) {
                 levelUp();
                 System.out.println("Level " + hero.getLevel() + " achieved!");

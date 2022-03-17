@@ -11,7 +11,6 @@ public class Skeleton extends Creature{
         private int health;
         private int strength;
         private int agility;
-        private int level;
 
         private Builder(){};
 
@@ -35,11 +34,6 @@ public class Skeleton extends Creature{
 
         public Builder setAgility(int agility) {
             this.agility = agility;
-            return this;
-        }
-
-        public Builder levelUp() {
-            this.level++;
             return this;
         }
 

@@ -24,11 +24,6 @@ public class Hero extends Creature {
         return gold;
     }
 
-    public int setExperience(int exp) {
-        experience = exp;
-        return experience;
-    }
-
     public boolean isDead() {
         return isDead;
     }

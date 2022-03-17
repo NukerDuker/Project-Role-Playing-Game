@@ -16,7 +16,6 @@ public abstract class Creature {
         this.strength = strength;
         this.agility = agility;
         this.level = level;
-        this.hero = hero;
     }
 
     public String getName() {
@@ -44,6 +43,21 @@ public abstract class Creature {
         return this;
     }
 
+    public Creature addStrength() {
+        strength++;
+        return this;
+    }
+
+    public Creature addAgility() {
+        agility++;
+        return this;
+    }
+
+    public Creature addLevel() {
+        level++;
+        return this;
+    }
+
     public void attack(Creature enemy, int randomResist) {
         StringBuilder result = new StringBuilder();
         boolean hit = this.getAgility() * 3 >= randomResist - this.getAgility();
@@ -66,20 +80,5 @@ public abstract class Creature {
             System.out.println("Miss! Damage is 0");
         }
         System.out.println(this.getName() + " health = " + this.getHealth());
-    }
-
-    public Creature addStrength() {
-        strength++;
-        return this;
-    }
-
-    public Creature addAgility() {
-        agility++;
-        return this;
-    }
-
-    public Creature addLevel() {
-        level++;
-        return this;
     }
 }

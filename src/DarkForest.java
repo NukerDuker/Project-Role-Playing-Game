@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Scanner;
 
 public class DarkForest implements Runnable{
 
@@ -77,8 +76,6 @@ public class DarkForest implements Runnable{
             hero.addExperience(receivedExp);
             result = "Gold: " + receivedGold + " , and exp: " + receivedExp +"\n";
             result += "Подожди, закапываем монстра, считаем золото...";
-            /*System.out.println("Gold: " + receivedGold + " , and exp: " + receivedExp);
-            System.out.println("Подожди, закапываем монстра, считаем золото...");*/
 
         } else if(enemy.getHealth() > 0 && hero.getHealth() <= 0) {
             result = "Герой мертв, нажмите любую кнопку для выхода.";

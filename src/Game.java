@@ -78,8 +78,8 @@ public class Game {
                 printDarkForestMenu();
                 break;
             case 3:
-                setExit();
-                break;
+                return Optional.empty();
+
         }
 
         if (!exit || !hero.isDead()) {
