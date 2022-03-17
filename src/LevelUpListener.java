@@ -1,4 +1,4 @@
-public class LevelUpListener implements Runnable{
+public class LevelUpListener implements Runnable {
 
     Hero hero;
     int baseExp;
@@ -10,15 +10,15 @@ public class LevelUpListener implements Runnable{
 
     @Override
     public void run() {
-        while(!hero.isDead()) {
+        while (!hero.isDead()) {
             baseExp = hero.getLevel() * 300;
-            if(hero.getExperience() > baseExp) {
+            if (hero.getExperience() > baseExp) {
                 levelUp();
                 System.out.println("Level " + hero.getLevel() + " achieved!");
                 String stats = "Level: " + hero.getLevel() + " Gold: " + hero.getGold() + " Health: " + hero.getHealth();
                 System.out.println(stats);
             }
-            try{
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -26,7 +26,7 @@ public class LevelUpListener implements Runnable{
         }
     }
 
-    public void levelUp(){
+    public void levelUp() {
         hero.fullHealth().addLevel().addAgility().addStrength().setHealth(hero.getMaxHealth() + 10);
         hero.setMaxHealth();
     }

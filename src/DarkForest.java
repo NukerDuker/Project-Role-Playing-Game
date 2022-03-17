@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class DarkForest implements Runnable{
+public class DarkForest implements Runnable {
 
     Hero hero;
     Creature enemy;
@@ -9,7 +9,7 @@ public class DarkForest implements Runnable{
     Thread levelUpListener;
     boolean endFight = false;
 
-    DarkForest(Hero hero, Game game){
+    DarkForest(Hero hero, Game game) {
         this.game = game;
         this.hero = hero;
         levelUpListener = new Thread(new LevelUpListener(hero));
@@ -29,10 +29,11 @@ public class DarkForest implements Runnable{
     private void createMonster() {
         int randomizeEnemy = getRandInt(3, 1);
         System.out.println("Появляется монстр!");
-        try{
+        try {
             if (randomizeEnemy <= 1) {
                 enemy = Skeleton.Builder.newInstance().setName("Skeleton").setHealth(80).setAgility(5).setStrength(5).build();
-            } if (randomizeEnemy >= 2) {
+            }
+            if (randomizeEnemy >= 2) {
                 enemy = Goblin.Builder.newInstance().setName("Goblin").setHealth(100).setAgility(4).setStrength(6).build();
             }
             System.out.println(fight());
@@ -74,10 +75,10 @@ public class DarkForest implements Runnable{
 
             hero.addGold(receivedGold);
             hero.addExperience(receivedExp);
-            result = "Gold: " + receivedGold + " , and exp: " + receivedExp +"\n";
+            result = "Gold: " + receivedGold + " , and exp: " + receivedExp + "\n";
             result += "Подожди, закапываем монстра, считаем золото...";
 
-        } else if(enemy.getHealth() > 0 && hero.getHealth() <= 0) {
+        } else if (enemy.getHealth() > 0 && hero.getHealth() <= 0) {
             result = "Герой мертв, нажмите любую кнопку для выхода.";
             game.setExit();
             hero.setDead();

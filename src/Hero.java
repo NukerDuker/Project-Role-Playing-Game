@@ -9,6 +9,7 @@ public class Hero extends Creature {
     private int maxHealth;
 
     private boolean isDead;
+
     public Hero(Builder builder) {
         super(builder.name, builder.health, builder.strength, builder.agility, 1);
         maxHealth = builder.health;
@@ -47,7 +48,7 @@ public class Hero extends Creature {
         return this;
     }
 
-    public Hero buyAndHeal(int price){
+    public Hero buyAndHeal(int price) {
         if (price > getGold()) {
             System.out.println("Sorry, you don`t have enough money! You need " + (price - getGold()) + " more. Go on and get it!");
         } else {

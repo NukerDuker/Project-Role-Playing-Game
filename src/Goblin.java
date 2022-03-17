@@ -1,21 +1,25 @@
-public class Goblin extends Creature{
+public class Goblin extends Creature {
 
     public Goblin(Builder builder) {
         super(builder.name, builder.health, builder.strength, builder.agility, 1);
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private String name;
         private int health;
         private int strength;
         private int agility;
 
-        private Builder(){};
+        private Builder() {
+        }
+
+        ;
 
         public static Builder newInstance() {
             return new Builder();
         }
+
         public Builder setName(String name) {
             this.name = name;
             return this;

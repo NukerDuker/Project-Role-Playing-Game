@@ -1,4 +1,4 @@
-public class Skeleton extends Creature{
+public class Skeleton extends Creature {
 
     public Skeleton(Builder builder) {
         super(builder.name, builder.health, builder.strength, builder.agility, 1);
@@ -12,11 +12,15 @@ public class Skeleton extends Creature{
         private int strength;
         private int agility;
 
-        private Builder(){};
+        private Builder() {
+        }
+
+        ;
 
         public static Builder newInstance() {
             return new Builder();
         }
+
         public Builder setName(String name) {
             this.name = name;
             return this;
