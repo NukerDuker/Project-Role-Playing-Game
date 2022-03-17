@@ -5,21 +5,46 @@ public class Hero extends Creature {
     private int experience;
     private int healPotion;
     private int gold;
+
     private int maxHealth;
 
+    private boolean isDead;
     public Hero(Builder builder) {
         super(builder.name, builder.health, builder.strength, builder.agility, 1);
         maxHealth = builder.health;
         experience = 0;
+        gold = 0;
     }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int setExperience(int exp) {
+        experience = exp;
+        return experience;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
 
     public Hero addExperience(int experience) {
         this.experience += experience;
         return this;
     }
 
-    public int getExperience(){
+    public int getExperience() {
         return this.experience;
+    }
+
+    public void setDead() {
+        isDead = true;
     }
 
     public Hero addGold(int gold) {
@@ -27,13 +52,18 @@ public class Hero extends Creature {
         return this;
     }
 
-    public Hero buy(int price) {
-        if(price > gold) {
-            System.out.println("Sorry, you don`t have enough money! You need " + (price - gold) + " more. Go on and get it!" );
+    public Hero buyAndHeal(int price){
+        if (price > getGold()) {
+            System.out.println("Sorry, you don`t have enough money! You need " + (price - getGold()) + " more. Go on and get it!");
         } else {
-            gold -= price;
-            healPotion++;
+            gold -= 20;
+            setHealth(getHealth() + 20);
+            //здоровье не может быть выше максимального
+            if (getHealth() > maxHealth) {
+                setHealth(maxHealth);
+            }
         }
+
         return this;
     }
 
@@ -48,21 +78,13 @@ public class Hero extends Creature {
         super.attack(enemy, randomResist);
     }
 
-    public void drinkPotion() {
-        //Зелье добавляет +20 здоровья
-        if (healPotion > 0) {
-            healPotion--;
-            setHealth(getHealth() + 20);
-            //Здоровье не может быть больше максимального
-            if (getHealth() > maxHealth) {
-                setHealth(maxHealth);
-            }
-
-        }
+    public Hero fullHealth() {
+        setHealth(maxHealth);
+        return this;
     }
 
-    public Hero fullHealth(){
-        setHealth(maxHealth);
+    public Hero setMaxHealth() {
+        maxHealth = getHealth();
         return this;
     }
 

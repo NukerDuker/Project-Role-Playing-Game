@@ -8,6 +8,7 @@ public abstract class Creature {
     private int strength;
     private int agility;
     private int level;
+    private Hero hero;
 
     public Creature(String name, int health, int strength, int agility, int level) {
         this.name = name;
@@ -15,6 +16,7 @@ public abstract class Creature {
         this.strength = strength;
         this.agility = agility;
         this.level = level;
+        this.hero = hero;
     }
 
     public String getName() {
@@ -22,7 +24,7 @@ public abstract class Creature {
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     public int getStrength() {
@@ -37,8 +39,8 @@ public abstract class Creature {
         return level;
     }
 
-    public Creature setHealth(int health) {
-        this.health = health;
+    public Creature setHealth(int newHealth) {
+        health = newHealth;
         return this;
     }
 
@@ -61,22 +63,22 @@ public abstract class Creature {
             enemy.setHealth(enemy.getHealth() - damage);
 
         } else {
-            System.out.println(" Miss! Damage is 0");
+            System.out.println("Miss! Damage is 0");
         }
         System.out.println(this.getName() + " health = " + this.getHealth());
     }
 
-    public Creature setStrength() {
+    public Creature addStrength() {
         strength++;
         return this;
     }
 
-    public Creature setAgility() {
+    public Creature addAgility() {
         agility++;
         return this;
     }
 
-    public Creature setLevel() {
+    public Creature addLevel() {
         level++;
         return this;
     }

@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Battle implements Runnable{
+public class DarkForest implements Runnable{
 
     Hero hero;
     Creature enemy;
@@ -10,7 +10,7 @@ public class Battle implements Runnable{
     Thread levelUpListener;
     boolean endFight = false;
 
-    Battle(Hero hero, Game game){
+    DarkForest(Hero hero, Game game){
         this.game = game;
         this.hero = hero;
         levelUpListener = new Thread(new LevelUpListener(hero));
@@ -19,12 +19,22 @@ public class Battle implements Runnable{
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(1000);
+            createMonster();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createMonster() {
         int randomizeEnemy = getRandInt(3, 1);
+        System.out.println("Появляется монстр!");
         try{
             if (randomizeEnemy <= 1) {
-                enemy = Skeleton.Builder.newInstance().setName("Skeleton").setHealth(80).setAgility(8).setStrength(8).build();
+                enemy = Skeleton.Builder.newInstance().setName("Skeleton").setHealth(80).setAgility(5).setStrength(5).build();
             } if (randomizeEnemy >= 2) {
-                enemy = Goblin.Builder.newInstance().setName("Goblin").setHealth(100).setAgility(7).setStrength(9).build();
+                enemy = Goblin.Builder.newInstance().setName("Goblin").setHealth(100).setAgility(4).setStrength(6).build();
             }
             System.out.println(fight());
         } catch (NullPointerException e) {
@@ -55,7 +65,7 @@ public class Battle implements Runnable{
                 break;
             }
         }
-        String result = hero.getHealth() > 0 ? "Hero " + hero.getName() + " wins!" : "Monster wins," + hero.getName() + " dies!";
+        String result = "";
 
         if (hero.getHealth() > 0 && enemy.getHealth() <= 0) {
 
@@ -65,12 +75,15 @@ public class Battle implements Runnable{
 
             hero.addGold(receivedGold);
             hero.addExperience(receivedExp);
-            hero.fullHealth();
-            System.out.println("Drop: " + receivedGold + " , and exp: " + receivedExp);
+            result = "Gold: " + receivedGold + " , and exp: " + receivedExp +"\n";
+            result += "Подожди, закапываем монстра, считаем золото...";
+            /*System.out.println("Gold: " + receivedGold + " , and exp: " + receivedExp);
+            System.out.println("Подожди, закапываем монстра, считаем золото...");*/
 
         } else if(enemy.getHealth() > 0 && hero.getHealth() <= 0) {
-            System.out.println("Game over, " + hero.getName() + " is dead!");
+            result = "Герой мертв, нажмите любую кнопку для выхода.";
             game.setExit();
+            hero.setDead();
         }
         return result;
     }
