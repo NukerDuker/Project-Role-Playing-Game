@@ -12,22 +12,29 @@ public class Game {
     private static String stats;
     private final String MAINMENU =
             """
+                    ---------------
                     Меню:
                     1. К торговцу
                     2. В Темный Лес
                     3. На выход
+                    ---------------
                     """;
     public final String DARKFORESTMENU =
             """
+                    ---------------
                     Меню:
                     1. Вернуться в город
                     2. Продолжить бой
+                    ---------------
                     """;
     public final String TRADERMENU =
             """
+                    ---------------
                     Меню:
                     1. Купить зелье здоровья (20 золотых)
-                    2. Выйти в город""";
+                    2. Выйти в город
+                    ---------------
+                    """;
     private boolean exit = false;
 
     public static void main(String[] args) {

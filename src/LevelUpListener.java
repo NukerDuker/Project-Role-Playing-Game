@@ -7,10 +7,11 @@ public class LevelUpListener implements Runnable {
         this.hero = hero;
     }
 
-
+//Поток, который проверяет уровень Experience, и при заполнении переводит героя на след. уровень
     @Override
     public void run() {
         while (!hero.isDead()) {
+            //Расчитываем порог перехода на новый уровень
             baseExp = hero.getLevel() * 300;
             if (hero.getExperience() > baseExp) {
                 levelUp();
@@ -25,7 +26,7 @@ public class LevelUpListener implements Runnable {
             }
         }
     }
-
+//Поднимаем уровень, восполняем доровье и поднимаем статы
     private void levelUp() {
         hero.fullHealth().addLevel().addAgility().addStrength().setHealth(hero.getMaxHealth() + 10);
         hero.setMaxHealth();

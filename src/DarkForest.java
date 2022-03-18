@@ -25,7 +25,7 @@ public class DarkForest implements Runnable {
             e.printStackTrace();
         }
     }
-//Метод создания монстров
+//Метод создания монстров. Можно добавить значение уровня героя к генератору статов монстров, чтобы они тоже росли с уровнем героя
     private void createMonster() {
         //Получаем рандомное число, на основе его значения определяем тип монстра
         int randomizeEnemy = getRandInt(3, 1);
@@ -50,42 +50,49 @@ public class DarkForest implements Runnable {
 //Метод битвы между героем и созданным монстром
     private String fight() {
         int randomResist;
+        String result = "";
+
         //Начинается бой
+        String battleBegins = """
+                Начало боя
+                ---------------""";
+        System.out.println(battleBegins);
+
         while (!endFight) {
+            //Проводим поочередную атаку, до тех пор, пока чье-то здоровье не опустится до <= 0
             randomResist = getRandInt(101, 0);
             hero.attack(enemy, randomResist);
 
             randomResist = getRandInt(101, 0);
             enemy.attack(hero, randomResist);
-            //Если здоровье героя или монстра опустится ниже нуля - он убит, происходит выход из боя
-            if (enemy.getHealth() <= 0) {
-                endFight = true;
-                break;
-            }
 
-            if (hero.getHealth() <= 0) {
+            //После каждого хода проверяем состояние здоровья
+            if (hero.getHealth() > 0 && enemy.getHealth() <= 0) {
+                int randomGold = getRandInt(10, 0);
+                int receivedGold = randomGold + (enemy.getLevel());
+                int receivedExp = ((enemy.getLevel() * 10) + 100);
+                //Если герой победил, он получает золото и опыт
+                hero.addGold(receivedGold);
+                hero.addExperience(receivedExp);
+
+                result = """
+                ---------------
+                Победа!""";
+                result += "Gold: " + receivedGold + " , and exp: " + receivedExp + "\n";
+                result += "Подожди, закапываем монстра, считаем золото...";
                 endFight = true;
-                break;
+
+            } else if (enemy.getHealth() > 0 && hero.getHealth() <= 0) {
+                result = """
+                ---------------
+                Поражение!""";
+                result += "Герой мертв, нажмите любую кнопку для выхода.";
+                game.setExit();
+                hero.setDead();
+                endFight = true;
             }
         }
-        String result = "";
 
-        if (hero.getHealth() > 0 && enemy.getHealth() <= 0) {
-
-            int randomGold = getRandInt(10, 0);
-            int receivedGold = randomGold + (enemy.getLevel());
-            int receivedExp = ((enemy.getLevel() * 10) + 100);
-
-            hero.addGold(receivedGold);
-            hero.addExperience(receivedExp);
-            result = "Gold: " + receivedGold + " , and exp: " + receivedExp + "\n";
-            result += "Подожди, закапываем монстра, считаем золото...";
-
-        } else if (enemy.getHealth() > 0 && hero.getHealth() <= 0) {
-            result = "Герой мертв, нажмите любую кнопку для выхода.";
-            game.setExit();
-            hero.setDead();
-        }
         return result;
     }
 }
