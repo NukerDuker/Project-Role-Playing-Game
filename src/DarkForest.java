@@ -15,7 +15,7 @@ public class DarkForest implements Runnable {
         levelUpListener = new Thread(new LevelUpListener(hero));
         levelUpListener.start();
     }
-
+//В методе реализованы создание монстров и сражения
     @Override
     public void run() {
         try {
@@ -25,8 +25,9 @@ public class DarkForest implements Runnable {
             e.printStackTrace();
         }
     }
-
+//Метод создания монстров
     private void createMonster() {
+        //Получаем рандомное число, на основе его значения определяем тип монстра
         int randomizeEnemy = getRandInt(3, 1);
         System.out.println("Появляется монстр!");
         try {
@@ -38,28 +39,30 @@ public class DarkForest implements Runnable {
             }
             System.out.println(fight());
         } catch (NullPointerException e) {
-            System.out.println("EXCEPTION: " + randomizeEnemy);
+            System.out.println("EXCEPTION (RandomiseEnemy): " + randomizeEnemy);
         }
     }
-
+//Метод для генерации рандомных чисел в заданном диапазоне
     private int getRandInt(int max, int min) {
         int result = rand.nextInt(((max - min) + 1) + min);
         return result;
     }
-
+//Метод битвы между героем и созданным монстром
     private String fight() {
         int randomResist;
         //Начинается бой
         while (!endFight) {
             randomResist = getRandInt(101, 0);
             hero.attack(enemy, randomResist);
+
+            randomResist = getRandInt(101, 0);
+            enemy.attack(hero, randomResist);
+            //Если здоровье героя или монстра опустится ниже нуля - он убит, происходит выход из боя
             if (enemy.getHealth() <= 0) {
                 endFight = true;
                 break;
             }
 
-            randomResist = getRandInt(101, 0);
-            enemy.attack(hero, randomResist);
             if (hero.getHealth() <= 0) {
                 endFight = true;
                 break;

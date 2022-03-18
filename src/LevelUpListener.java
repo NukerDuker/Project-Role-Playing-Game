@@ -26,7 +26,7 @@ public class LevelUpListener implements Runnable {
         }
     }
 
-    public void levelUp() {
+    private void levelUp() {
         hero.fullHealth().addLevel().addAgility().addStrength().setHealth(hero.getMaxHealth() + 10);
         hero.setMaxHealth();
     }
