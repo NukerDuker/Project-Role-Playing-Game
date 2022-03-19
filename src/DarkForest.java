@@ -15,7 +15,7 @@ public class DarkForest implements Runnable {
         levelUpListener = new Thread(new LevelUpListener(hero));
         levelUpListener.start();
     }
-//В методе реализованы создание монстров и сражения
+//В классе реализованы создание монстров и сражения
     @Override
     public void run() {
         try {
